@@ -27,10 +27,13 @@ class User extends BaseEntity {
   @Column('varchar')
   name: string;
 
+  @Column('varchar', {nullable: true})
+  password: string;
+
   @Column('varchar')
   email: string;
 
-  @Column('varchar', { length: 2000 })
+  @Column('varchar', { length: 2000, nullable: true })
   avatarUrl: string;
 
   @CreateDateColumn({ type: 'timestamp' })
