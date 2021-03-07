@@ -11,6 +11,9 @@ export const attachPublicRoutes = (app: any): void => {
     app.post('/test/create-account', test.createAccount);
   }
 
+  app.post('/users/new', users.createNewUser);
+  app.post('/authenticate', authentication.authenticateUser);
+
   app.post('/authentication/guest', authentication.createGuestAccount);
   // Slawoj: for initial Postman test
   app.get('/authentication/guest', authentication.createGuestAccount);
