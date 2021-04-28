@@ -22,8 +22,10 @@ export const authenticateUser = catchErrors(async (_req, res) => {
   if (!user) {
     res.status(404).send();
   } else {
+    const {password, ...remainingUserData}  = user;
     res.respond({
       authToken: signToken({ sub: user.id }),
+      user: remainingUserData
     });
   }
 });
