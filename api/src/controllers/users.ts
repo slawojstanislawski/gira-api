@@ -22,7 +22,9 @@ export const createNewUser = catchErrors(async (req, res) => {
     .getOne();
   console.log("existingUser", existingUser);
   if (existingUser) {
-    res.status(400).json({ status: 'Bad request' });
+    res.status(422).json({
+      status: 'User already exists'
+    });
   } else {
     const project = await Project.findOne(1);
     user = await createEntity(User, {
