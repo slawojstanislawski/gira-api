@@ -48,6 +48,9 @@ class Issue extends BaseEntity {
   @Column('double precision')
   listPosition: number;
 
+  @Column('double precision')
+  statusPosition: number;
+
   @Column('text', { nullable: true })
   description: string | null;
 

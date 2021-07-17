@@ -35,7 +35,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
     createEntity(Issue, {
       title: 'Issue title 1',
       type: IssueType.TASK,
-      status: IssueStatus.BACKLOG,
+      status: IssueStatus.TODO,
       priority: IssuePriority.LOWEST,
       listPosition: 1,
       reporterId: users[0].id,
@@ -44,7 +44,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
     createEntity(Issue, {
       title: 'Issue title 2',
       type: IssueType.TASK,
-      status: IssueStatus.BACKLOG,
+      status: IssueStatus.TODO,
       priority: IssuePriority.MEDIUM,
       listPosition: 2,
       estimate: 5,
@@ -56,7 +56,7 @@ const seedIssues = (project: Project): Promise<Issue[]> => {
     createEntity(Issue, {
       title: 'Issue title 3',
       type: IssueType.STORY,
-      status: IssueStatus.SELECTED,
+      status: IssueStatus.INREVIEW,
       priority: IssuePriority.HIGH,
       listPosition: 3,
       estimate: 10,
