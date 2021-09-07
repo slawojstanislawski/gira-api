@@ -1,20 +1,27 @@
-import { Issue } from 'entities';
-import { catchErrors } from 'errors';
-import { updateEntity, deleteEntity, createEntity, findEntityOrThrow } from 'utils/typeorm';
+import { Issue } from '../entities';
+import { catchErrors } from '../errors';
+import { updateEntity, deleteEntity, createEntity, findEntityOrThrow } from '../utils/typeorm';
 
 export const getProjectIssues = catchErrors(async (req, res) => {
   const { projectId } = req.currentUser;
+  const { id } = req.currentUser;
   const { searchTerm } = req.query;
 
-  let whereSQL = 'issue.projectId = :projectId';
+  // let whereSQL = 'issue.projectId = :projectId';
+  let whereSQL = 'issue.reporterId = :id';
 
   if (searchTerm) {
     whereSQL += ' AND (issue.title ILIKE :searchTerm OR issue.descriptionText ILIKE :searchTerm)';
   }
 
+  // const issues = await Issue.createQueryBuilder('issue')
+  //   .select()
+  //   .where(whereSQL, { projectId, searchTerm: `%${searchTerm}%` })
+  //   .getMany();
+
   const issues = await Issue.createQueryBuilder('issue')
     .select()
-    .where(whereSQL, { projectId, searchTerm: `%${searchTerm}%` })
+    .where(whereSQL, { id, projectId, searchTerm: `%${searchTerm}%` })
     .getMany();
 
   res.respond({ issues });

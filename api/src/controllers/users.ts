@@ -1,6 +1,7 @@
 import { createEntity } from "../utils/typeorm";
-import { catchErrors } from 'errors';
+import { catchErrors } from '../errors';
 import { Project, User } from '../entities';
+import { seedProject, seedIssues } from '../database/seedDatabase';
 
 export const getCurrentUser = catchErrors((req, res) => {
   res.respond({ currentUser: req.currentUser });
@@ -21,16 +22,33 @@ export const createNewUser = catchErrors(async (req, res) => {
     )
     .getOne();
   console.log("existingUser", existingUser);
+
+  const existingProject = await Project.createQueryBuilder('project')
+    .select()
+    .where(
+      'project.id = 1'
+    )
+    .getOne();
+  console.log("existingProject", existingProject);
+
   if (existingUser) {
     res.status(422).json({
       status: 'User already exists'
     });
-  } else {
-    const project = await Project.findOne(1);
+  } else if(existingProject) {
     user = await createEntity(User, {
       ...req.body,
-      project
+      project: existingProject
     });
+    await seedIssues(existingProject, [user]);
+    res.respond({ user });
+  }
+  else{
+    user = await createEntity(User, {
+      ...req.body,
+    });
+    const project = await seedProject([user]);
+    await seedIssues(project, [user]);
     res.respond({ user });
   }
 });

@@ -15,8 +15,8 @@ import {
   BeforeInsert,
 } from 'typeorm';
 
-import is from 'utils/validation';
-import { IssueType, IssueStatus, IssuePriority } from 'constants/issues';
+import is from '../utils/validation';
+import { IssueType, IssueStatus, IssuePriority } from '../constants/issues';
 import { Comment, Project, User } from '.';
 
 @Entity()
@@ -47,6 +47,9 @@ class Issue extends BaseEntity {
 
   @Column('double precision')
   listPosition: number;
+
+  @Column('double precision')
+  statusPosition: number;
 
   @Column('text', { nullable: true })
   description: string | null;

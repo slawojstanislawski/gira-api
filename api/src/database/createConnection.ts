@@ -1,6 +1,6 @@
 import { createConnection, Connection } from 'typeorm';
 
-import * as entities from 'entities';
+import * as entities from '../entities';
 
 const createDatabaseConnection = (): Promise<Connection> =>
   createConnection({

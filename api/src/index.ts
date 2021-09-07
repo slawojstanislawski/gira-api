@@ -4,11 +4,11 @@ import 'reflect-metadata';
 import express from 'express';
 import cors from 'cors';
 
-import createDatabaseConnection from 'database/createConnection';
-import { addRespondToResponse } from 'middleware/response';
-import { authenticateUser } from 'middleware/authentication';
-import { handleError } from 'middleware/errors';
-import { RouteNotFoundError } from 'errors';
+import createDatabaseConnection from './database/createConnection';
+import { addRespondToResponse } from './middleware/response';
+import { authenticateUser } from './middleware/authentication';
+import { handleError } from './middleware/errors';
+import { RouteNotFoundError } from './errors';
 
 import { attachPublicRoutes, attachPrivateRoutes } from './routes';
 
