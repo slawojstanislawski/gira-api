@@ -134,7 +134,7 @@ export const seedIssues = (project: Project, users: User[]): Promise<Issue[]> =>
       project,
     }),
     createEntity(Issue, {
-      title: 'Try leaving a comment on this issue.',
+      title: 'Try to a comment on this issue.',
       type: IssueType.TASK,
       status: IssueStatus.DONE,
       priority: IssuePriority.MEDIUM,
