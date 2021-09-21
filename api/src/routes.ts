@@ -5,6 +5,8 @@ import * as projects from './controllers/projects';
 import * as test from './controllers/test';
 import * as users from './controllers/users';
 
+import path from 'path';
+
 export const attachPublicRoutes = (app: any): void => {
   if (process.env.NODE_ENV === 'test') {
     app.delete('/test/reset-database', test.resetDatabase);
@@ -17,6 +19,15 @@ export const attachPublicRoutes = (app: any): void => {
   app.post('/authentication/guest', authentication.createGuestAccount);
   // Slawoj: for initial Postman test
   app.get('/authentication/guest', authentication.createGuestAccount);
+
+  //just for hosting
+  app.get(['/register', '/login', '/backlog', '/board', '/settings'], function(_req:any, res:any) {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'), function(err:any) {
+       if (err) {
+        res.status(500).send(err)
+       }
+     })
+  })
 };
 
 export const attachPrivateRoutes = (app: any): void => {
